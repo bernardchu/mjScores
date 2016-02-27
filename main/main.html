@@ -1,1 +1,34 @@
-<span>foo! {{Main.foo}}</span>
+<div>
+  <div>
+    <md-content layout-padding>
+      <md-button ng-click="Main.toggleRight()">Add players</md-button>
+      <md-list>
+        <md-list-item class="md-2-line" ng-repeat="player in Main.activePlayers">
+          <div class="md-list-item-text">
+            <h3>{{player.name}}</h3>
+            <p>{{player.points}}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+    
+
+  </div>
+  <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="playerList">
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Players</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <md-list>
+        <md-list-item ng-click="Main.togglePlayer( player )" class="md-2-line" ng-repeat="player in Main.players">
+          <md-checkbox ng-model="player.active"></md-checkbox>
+          <div class="md-list-item-text">
+            <h3>{{player.name}}</h3>
+            <p>{{player.points}} points</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </md-sidenav>
+</div>
+
