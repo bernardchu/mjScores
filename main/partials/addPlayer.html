@@ -1,0 +1,14 @@
+<md-dialog>
+  <form name="AddPlayer.addPlayerForm">
+  <md-dialog-content class="md-dialog-content">
+    <md-input-container>
+      <label >New Player's Name</label>
+      <input type="text" required ng-model="AddPlayer.name">
+    </md-input-container>
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised" ng-disabled="AddPlayer.addPlayerForm.$invalid" ng-click="AddPlayer.confirm( AddPlayer.name )">Confirm</md-button>
+      <md-button class="md-raised" ng-click="AddPlayer.cancel()">Cancel</md-button>
+    </md-dialog-actions>
+  </md-dialog-content>
+  </form>
+</md-dialog>

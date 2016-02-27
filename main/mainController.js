@@ -1,7 +1,8 @@
-function MainController( $mdSidenav ) {
+function MainController( $mdSidenav, $mdDialog ) {
   this.players = [];
   this.activePlayers = [];
   this.$mdSidenav = $mdSidenav;
+  this.$mdDialog = $mdDialog;
   this.generateRandomPlayers( 10 );
 }
 
@@ -29,6 +30,29 @@ MainController.prototype.togglePlayer = function ( player ) {
     this.activePlayers.splice( index, 1 );
   }
   player.active = !player.active;
+}
+
+MainController.prototype.addPlayer = function ( ev ) {
+  var _this = this;
+  this.$mdDialog.show({
+      controller: 'AddPlayerController as AddPlayer',
+      templateUrl: '/main/partials/addPlayer.html',
+      // parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: true
+    })
+    .then( function( name ) {
+      var player = {
+        name: name,
+        points: 1000,
+        active: false
+      };
+      _this.players.push( player );
+      _this.togglePlayer( player );
+    }, function() {
+      console.log( 'cancelled' );
+    } );
 }
 
 MainController.prototype.names = [
