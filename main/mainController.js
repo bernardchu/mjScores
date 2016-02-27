@@ -21,7 +21,6 @@ MainController.prototype.toggleRight = function () {
 }
 
 MainController.prototype.togglePlayer = function ( player ) {
-  player.active = !player.active;
   var index = this.activePlayers.indexOf( player );
   if ( index === -1 ) {
     if ( this.activePlayers.length === 4 ) { return; }
@@ -29,6 +28,7 @@ MainController.prototype.togglePlayer = function ( player ) {
   } else {
     this.activePlayers.splice( index, 1 );
   }
+  player.active = !player.active;
 }
 
 MainController.prototype.names = [
