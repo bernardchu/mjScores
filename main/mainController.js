@@ -28,18 +28,28 @@ MainController.prototype.togglePlayer = function ( player ) {
     this.activePlayers.push( player );
   } else {
     this.activePlayers.splice( index, 1 );
+    this.unsetWinner( player );
+    this.unsetLoser( player );
   }
 }
 
 MainController.prototype.setWinner = function( player ) {
   this.winnerId = player.id;
+  this.unsetLoser( player );
+};
+
+MainController.prototype.setLoser = function( player ) {
+  this.loserId = player.id;
+  this.unsetWinner( player );
+};
+
+MainController.prototype.unsetLoser = function( player ) {
   if (this.loserId === player.id) {
     this.loserId = null;
   }
 };
 
-MainController.prototype.setLoser = function( player ) {
-  this.loserId = player.id;
+MainController.prototype.unsetWinner = function( player ) {
   if (this.winnerId === player.id) {
     this.winnerId = null;
   }

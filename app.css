@@ -8,6 +8,10 @@ body {
   margin: auto;
 }
 
+.h100 {
+  height: 100%;
+}
+
 .invisible {
   visibility: hidden;
 }
