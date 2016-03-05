@@ -1,0 +1,17 @@
+body {
+  background-color: #efefef;
+}
+
+.ui-view {
+  max-width: 360px;
+  background-color: #ffffff;
+  margin: auto;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.md-36 {
+  font-size: 36px;
+}

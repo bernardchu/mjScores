@@ -1,14 +1,35 @@
 <div>
   <div>
     <md-content layout-padding>
-      <md-button ng-click="Main.toggleRight()"><md-icon>list</md-icon><md-icon>face</md-icon></md-button>
-      <md-button ng-click="Main.addPlayer()"><md-icon>add</md-icon><md-icon>face</md-icon></md-button>
+      <div layout="row">
+        <md-button flex class="md-raised" ng-click="Main.toggleRight()">
+          <md-icon>list</md-icon><md-icon>face</md-icon>
+        </md-button>
+        <md-button flex class="md-raised" ng-click="Main.addPlayer( $event )">
+          <md-icon>add</md-icon><md-icon>face</md-icon>
+        </md-button>
+      </div>
+      <div layout="row">
+        <span flex layout="row">
+          <md-icon>chevron_left</md-icon> Winner
+        </span>
+        <span flex layout="row">
+          <md-icon>touch_app</md-icon>
+        </span>
+        <span flex layout="row">
+          Loser <md-icon>chevron_right</md-icon>  
+        </span>
+      </div>
       <md-list>
-        <md-list-item class="md-2-line" ng-repeat="player in Main.activePlayers">
-          <div class="md-list-item-text">
-            <h3>{{player.name}}</h3>
-            <p>{{player.points}}</p>
-          </div>
+        <md-list-item layout="row" class="md-2-line" ng-repeat="player in Main.activePlayers">
+          <md-icon class="md-36" flex="20" ng-class="{'invisible': !Main.isWinner( player )}">sentiment_very_satisfied</md-icon>
+          <active-player 
+            flex="60"
+            md-swipe-left="Main.setWinner( player )" 
+            md-swipe-right="Main.setLoser( player )"
+            player="player">
+          </active-player>
+          <md-icon class="md-36" flex="20" ng-class="{'invisible': !Main.isLoser( player )}">sentiment_very_dissatisfied</md-icon>
         </md-list-item>
       </md-list>
     </md-content>
@@ -22,7 +43,7 @@
     <md-content layout-padding>
       <md-list>
         <md-list-item ng-click="Main.togglePlayer( player )" class="md-2-line" ng-repeat="player in Main.players">
-          <md-checkbox ng-model="player.active"></md-checkbox>
+          <md-checkbox ng-checked="Main.isPlayerActive( player )"></md-checkbox>
           <div class="md-list-item-text">
             <h3>{{player.name}}</h3>
             <p>{{player.points}} points</p>

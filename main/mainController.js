@@ -11,7 +11,7 @@ MainController.prototype.generateRandomPlayers = function ( count ) {
     this.players.push( {
       name: this.names[ Math.floor( Math.random() * 10 ) ] + this.names[ Math.floor(Math.random() * 10) ],
       points: Math.floor( Math.random() * 2000 ),
-      active: false
+      id: Math.floor( Math.random() * 1000 ),  
     });
     count--;
   }
@@ -29,24 +29,44 @@ MainController.prototype.togglePlayer = function ( player ) {
   } else {
     this.activePlayers.splice( index, 1 );
   }
-  player.active = !player.active;
 }
+
+MainController.prototype.setWinner = function( player ) {
+  this.winnerId = player.id;
+  if (this.loserId === player.id) {
+    this.loserId = null;
+  }
+};
+
+MainController.prototype.setLoser = function( player ) {
+  this.loserId = player.id;
+  if (this.winnerId === player.id) {
+    this.winnerId = null;
+  }
+};
+
+MainController.prototype.isWinner = function( player ) {
+  return this.winnerId === player.id;
+};
+
+MainController.prototype.isLoser = function( player ) {
+  return this.loserId === player.id;
+};
 
 MainController.prototype.addPlayer = function ( ev ) {
   var _this = this;
   this.$mdDialog.show({
       controller: 'AddPlayerController as AddPlayer',
       templateUrl: '/main/partials/addPlayer.html',
-      // parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
       fullscreen: true
     })
     .then( function( name ) {
       var player = {
+        id: Math.floor( Math.random() * 1000 ),
         name: name,
-        points: 1000,
-        active: false
+        points: 1000
       };
       _this.players.push( player );
       _this.togglePlayer( player );
@@ -54,6 +74,10 @@ MainController.prototype.addPlayer = function ( ev ) {
       console.log( 'cancelled' );
     } );
 }
+
+MainController.prototype.isPlayerActive = function ( player ) {
+  return this.activePlayers.indexOf( player ) !== -1;
+};
 
 MainController.prototype.names = [
   'foo',
