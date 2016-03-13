@@ -36,6 +36,8 @@
     
 
   </div>
+
+  <!-- Right Sidenav: Player Selection -->
   <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="playerList">
     <md-toolbar class="md-theme-light">
       <h1 class="md-toolbar-tools">Players</h1>
@@ -43,7 +45,7 @@
     <md-content layout-padding>
       <md-list>
         <md-list-item ng-click="Main.togglePlayer( player )" class="md-2-line" ng-repeat="player in Main.players">
-          <md-checkbox ng-checked="Main.isPlayerActive( player )"></md-checkbox>
+          <md-checkbox ng-disabled="Main.activePlayers.length >= 4 && !Main.isPlayerActive( player )" ng-checked="Main.isPlayerActive( player )"></md-checkbox>
           <div class="md-list-item-text">
             <h3>{{player.name}}</h3>
             <p>{{player.points}} points</p>
