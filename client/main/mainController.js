@@ -1,20 +1,16 @@
-function MainController( $mdSidenav, $mdDialog ) {
+function MainController( $mdSidenav, $mdDialog, PlayerResource ) {
   this.players = [];
   this.activePlayers = [];
   this.$mdSidenav = $mdSidenav;
   this.$mdDialog = $mdDialog;
-  this.generateRandomPlayers( 10 );
-}
-
-MainController.prototype.generateRandomPlayers = function ( count ) {
-  while (count) {
-    this.players.push( {
-      name: this.names[ Math.floor( Math.random() * 10 ) ] + this.names[ Math.floor(Math.random() * 10) ],
-      points: Math.floor( Math.random() * 2000 ),
-      id: Math.floor( Math.random() * 1000 ),  
-    });
-    count--;
-  }
+  var _this = this;
+  PlayerResource.query()
+    .then( function ( players ) {
+      _this.players = players;
+    } )
+    .catch( function ( error ) {
+      console.log('error fetching players');
+    } )
 }
 
 MainController.prototype.toggleRight = function () {
@@ -88,16 +84,3 @@ MainController.prototype.addPlayer = function ( ev ) {
 MainController.prototype.isPlayerActive = function ( player ) {
   return this.activePlayers.indexOf( player ) !== -1;
 };
-
-MainController.prototype.names = [
-  'foo',
-  'bar',
-  'baz',
-  'monkey',
-  'banana',
-  'bread',
-  'face',
-  'head',
-  'poop',
-  'pants'
-];

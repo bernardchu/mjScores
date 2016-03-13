@@ -1,10 +1,13 @@
 var express = require('express');
 var app = express();
+var port = process.env.PORT || 3000;
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+var playerRouter = express.Router();
+app.use( '/api/player', playerRouter );
+require('./player/playerRoutes')(playerRouter);
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+app.use(express.static("../client"));
+
+app.listen( port, function () {
+  console.log('Listening on port 3000');
+} );
